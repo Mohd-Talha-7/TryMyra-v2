@@ -30,7 +30,7 @@ class RazorpayService {
     private keyId: string;
 
     constructor() {
-        this.keyId = (import.meta as any).env.VITE_RAZORPAY_KEY_ID || '';
+        this.keyId = import.meta.env.VITE_RAZORPAY_KEY_ID || '';
     }
 
     public async openCheckout(amount: number, onSucess: (response: any) => void) {
@@ -50,9 +50,9 @@ class RazorpayService {
                 onSucess(response);
             },
             prefill: {
-                name: 'Alex Morgan',
-                email: 'alex@example.com',
-                contact: '9999999999'
+                name: import.meta.env.VITE_RAZORPAY_PREFILL_NAME,
+                email: import.meta.env.VITE_RAZORPAY_PREFILL_EMAIL,
+                contact: import.meta.env.VITE_RAZORPAY_PREFILL_CONTACT
             },
             theme: {
                 color: '#3713ec'

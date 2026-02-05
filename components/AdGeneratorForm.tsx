@@ -127,15 +127,15 @@ export const AdGeneratorForm: React.FC<AdGeneratorFormProps> = ({ isDashboard })
   const getWebhookUrl = (type: AdType): string => {
     switch (type) {
       case AdType.IMAGE:
-        return 'https://fastapi.ameegolabs.com/webhook/ad/api/image';
+        return import.meta.env.VITE_FASTAPI_IMAGE_URL;
       case AdType.UGC_AD:
-        return 'https://fastapi.ameegolabs.com/webhook/ad/api/ugc';
+        return import.meta.env.VITE_FASTAPI_UGC_URL;
       case AdType.VFX_AD:
-        return 'https://fastapi.ameegolabs.com/webhook-test/ad/api/vfx';
+        return import.meta.env.VITE_FASTAPI_VFX_URL;
       case AdType.NO_HUMAN_AD:
-        return 'https://fastapi.ameegolabs.com/webhook-test/ad/api/nohuman';
+        return import.meta.env.VITE_FASTAPI_NOHUMAN_URL;
       default:
-        return 'https://fastapi.ameegolabs.com/webhook/ad/api/image';
+        return import.meta.env.VITE_FASTAPI_IMAGE_URL;
     }
   };
 
