@@ -20,13 +20,7 @@ export class GeminiService {
             };
         }
 
-        const prompt = `Generate a high-converting ad copy for the following product:
-    Product: ${request.productName}
-    Description: ${request.description}
-    Platform: ${request.platform}
-    Mood: ${request.mood}
-
-    Please provide a catchy headline and a body text.`;
+        // const _prompt = ... (unused for now)
 
         try {
             // Placeholder for actual Gemini API call
@@ -47,10 +41,7 @@ export class GeminiService {
             return `https://picsum.photos/seed/${request.productName}/800/600`;
         }
 
-        const prompt = `A professional, high-end commercial product shot of ${request.productName}. 
-    Style: ${request.mood}, optimized for ${request.platform}. 
-    Scene: ${request.description}. 
-    Masterpiece, 4k resolution, cinematic lighting, sharp focus.`;
+        // const _prompt = ... (unused for now)
 
         try {
             // Placeholder for actual Gemini image generation
@@ -62,8 +53,8 @@ export class GeminiService {
         }
     }
 
-    async generateScript(topic: string, platform: string): Promise<string> {
-        const prompt = `Write a viral UGC video script for ${platform} about ${topic}. Include scene descriptions and speaker lines.`;
+    async generateScript(topic: string, _platform: string): Promise<string> {
+        // const _prompt = ... (unused for now)
 
         try {
             // Placeholder for actual Gemini API call
