@@ -69,7 +69,7 @@ const VideoPlayer: React.FC<{ src: string }> = ({ src }) => {
 
       {/* Center Play Button Overlay */}
       {!isPlaying && (
-        <div 
+        <div
           onClick={togglePlay}
           className="absolute inset-0 flex items-center justify-center z-20 cursor-pointer bg-black/30"
         >
@@ -96,8 +96,8 @@ export const Showcase: React.FC = () => {
           'We took a simple studio shot of a dry fruit jar and transformed it into a premium social media banner with professional lifestyle elements.',
         inputLabel: 'Product Photo',
         outputLabel: 'Final Banner',
-        inputSrc: 'https://i.postimg.cc/85M6XmZH/dryfruit-input.jpg',
-        outputSrc: 'https://i.postimg.cc/9f0S3K87/dryfruit-output.jpg',
+        inputSrc: '/images/dryfruit-input.jpg',
+        outputSrc: '/images/dryfruit-output.jpg',
         type: 'image',
       },
       {
@@ -121,7 +121,7 @@ export const Showcase: React.FC = () => {
           'Real creator style UGC video optimized for Reels and TikTok. Authentic testimony built from a single bottle photo.',
         inputLabel: 'Bottle Shot',
         outputLabel: 'UGC Video',
-        inputSrc: 'https://i.postimg.cc/k4GkL8Tz/aris-input.jpg',
+        inputSrc: '/images/input_perfume.jpg',
         outputSrc: '/videos/ugc_perfume.mp4',
         type: 'video',
       },
@@ -146,7 +146,7 @@ export const Showcase: React.FC = () => {
           'We transform a basic studio shot into a cinematic commercial using volumetric smoke, emerald energy swirls, and dynamic typography.',
         inputLabel: 'Studio Bottle',
         outputLabel: 'High-End VFX',
-        inputSrc: 'https://i.postimg.cc/k4GkL8Tz/aris-input.jpg',
+        inputSrc: '/images/input_perfume.jpg',
         outputSrc: '/videos/vfx_perfume.mp4',
         type: 'video',
       },
@@ -182,7 +182,7 @@ export const Showcase: React.FC = () => {
           'A sophisticated "No-Human" ad featuring moody backgrounds, rising smoke effects, and premium gold-accented motion graphics.',
         inputLabel: 'Bottle',
         outputLabel: 'Studio Video',
-        inputSrc: 'https://i.postimg.cc/k4GkL8Tz/aris-input.jpg',
+        inputSrc: '/images/input_perfume.jpg',
         outputSrc: '/videos/nohuman_perfume.mp4',
         type: 'video',
       },
@@ -229,11 +229,10 @@ export const Showcase: React.FC = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`flex items-center gap-3 px-6 py-4 rounded-2xl text-sm font-bold transition-all duration-300 ${
-                  isActive
-                    ? 'bg-primary text-white scale-105 shadow-[0_10px_40px_-10px_rgba(47,107,255,0.8)]'
-                    : 'bg-white/5 border border-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10'
-                }`}
+                className={`flex items-center gap-3 px-6 py-4 rounded-2xl text-sm font-bold transition-all duration-300 ${isActive
+                  ? 'bg-primary text-white scale-105 shadow-[0_10px_40px_-10px_rgba(47,107,255,0.8)]'
+                  : 'bg-white/5 border border-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10'
+                  }`}
               >
                 <Icon size={18} />
                 {tab.label}
@@ -259,11 +258,11 @@ export const Showcase: React.FC = () => {
                   <img
                     src={item.inputSrc}
                     alt="Input"
-                    className="w-full h-full object-contain p-8 relative z-10 opacity-80"
+                    className="w-full h-full object-contain relative z-10"
                   />
 
                   {/* Soft blur background fill */}
-                  <div className="absolute inset-0 blur-3xl opacity-10 scale-125">
+                  <div className="absolute inset-0 blur-3xl opacity-40 scale-150">
                     <img
                       src={item.inputSrc}
                       className="w-full h-full object-cover"
@@ -299,7 +298,7 @@ export const Showcase: React.FC = () => {
                       className="w-full h-full object-cover relative z-10"
                     />
                   )}
-                  
+
                   {/* Subtle edge glow */}
                   <div className="absolute inset-0 border border-white/5 pointer-events-none z-20 rounded-[32px]"></div>
                 </div>
@@ -320,14 +319,14 @@ export const Showcase: React.FC = () => {
                       {item.description}
                     </p>
                   </div>
-                  
+
                   <div className="flex flex-wrap gap-4 pt-4">
                     <div className="px-4 py-2 bg-white/5 rounded-xl border border-white/5 flex items-center gap-2">
-                       <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
-                       <span className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">Post Ready</span>
+                      <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
+                      <span className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">Post Ready</span>
                     </div>
                     <div className="px-4 py-2 bg-white/5 rounded-xl border border-white/5 flex items-center gap-2">
-                       <span className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">UHD Export</span>
+                      <span className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">UHD Export</span>
                     </div>
                   </div>
                 </div>
@@ -339,10 +338,10 @@ export const Showcase: React.FC = () => {
 
         {/* Benefits Footer */}
         <div className="mt-32 pt-10 border-t border-white/5 grid grid-cols-2 md:grid-cols-4 gap-8">
-           <Benefit label="Mobile First (9:16)" icon={<Video size={18}/>} />
-           <Benefit label="Direct Export" icon={<ImageIcon size={18}/>} />
-           <Benefit label="Zero Space Waste" icon={<Sparkles size={18}/>} />
-           <Benefit label="Pro Quality" icon={<UserX size={18}/>} />
+          <Benefit label="Mobile First (9:16)" icon={<Video size={18} />} />
+          <Benefit label="Direct Export" icon={<ImageIcon size={18} />} />
+          <Benefit label="Zero Space Waste" icon={<Sparkles size={18} />} />
+          <Benefit label="Pro Quality" icon={<UserX size={18} />} />
         </div>
 
       </div>
@@ -352,7 +351,7 @@ export const Showcase: React.FC = () => {
 
 const Benefit = ({ label, icon }: any) => (
   <div className="flex items-center gap-3 text-slate-500 font-bold uppercase text-[10px] tracking-widest">
-     <div className="text-primary">{icon}</div>
-     {label}
+    <div className="text-primary">{icon}</div>
+    {label}
   </div>
 );
