@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Play } from 'lucide-react';
 
 export const Hero: React.FC = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const handleSmoothScroll = (e: React.MouseEvent, targetId: string) => {
     e.preventDefault();
     const element = document.getElementById(targetId);
@@ -30,8 +43,12 @@ export const Hero: React.FC = () => {
           loop
           muted
           playsInline
+          key={isMobile ? 'mobile-video' : 'desktop-video'}
         >
-          <source src="/videos/hero-video.mp4" type="video/mp4" />
+          <source
+            src={isMobile ? '/videos/hero-video-9x16.mp4' : '/videos/hero-video-16x9.mp4'}
+            type="video/mp4"
+          />
         </video>
 
         {/* Dark cinematic overlay */}
