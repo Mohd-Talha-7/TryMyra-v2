@@ -11,6 +11,7 @@ interface ImportMetaEnv {
     readonly VITE_RAZORPAY_PREFILL_NAME: string
     readonly VITE_RAZORPAY_PREFILL_EMAIL: string
     readonly VITE_RAZORPAY_PREFILL_CONTACT: string
+    readonly VITE_BACKEND_URL: string
 }
 
 interface ImportMeta {

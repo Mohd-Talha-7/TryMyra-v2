@@ -323,7 +323,7 @@ export const AdGeneratorForm: React.FC<AdGeneratorFormProps> = ({ isDashboard })
 
           const finalTitle = extractSmartTitle(formData.productDetails, formData.productUrl, adTypeLabel, apiTitle, fileName);
 
-          deductCredits(getCost(formData.adType), finalTitle, category);
+          await deductCredits(getCost(formData.adType), finalTitle, category);
 
           const newGeneration: Generation = {
             id: Math.random().toString(36).substr(2, 9),
