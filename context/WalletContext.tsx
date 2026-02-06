@@ -9,6 +9,7 @@ export interface Transaction {
   amount: number;
   amountINR?: number;
   status: 'Completed' | 'Pending' | 'Failed';
+  type?: 'credit' | 'debit'; // For UI filtering
   category?: string;
   paymentMethod?: string;
   invoiceUrl?: string;
