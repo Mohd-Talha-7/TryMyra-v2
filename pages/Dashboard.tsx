@@ -129,7 +129,7 @@ export const Dashboard = () => {
                     )}
 
                     {/* Sidebar */}
-                    <aside className={`fixed inset-y-0 left-0 z-50 flex w-[85vw] max-w-xs md:w-72 flex-col glass-sidebar transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+                    <aside className={`fixed inset-y-0 left-0 z-50 flex w-[85vw] max-w-xs md:w-72 flex-col bg-[#0a0a0f]/95 backdrop-blur-2xl border-r border-white/10 md:glass-sidebar transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
                         } md:relative md:translate-x-0`}>
                         <div className="flex h-20 items-center justify-between px-6 md:px-8 border-b border-white/5">
                             <button

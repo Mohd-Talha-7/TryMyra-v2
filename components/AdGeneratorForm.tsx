@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Upload, ImageIcon, Video, Wand2, UserX, AlertCircle, Loader2, Download, RefreshCcw, CheckCircle, Play, Pause, Volume2, VolumeX, Wallet } from 'lucide-react';
+import { Upload, ImageIcon, Video, Wand2, UserX, AlertCircle, Loader2, Download, RefreshCcw, CheckCircle, Play, Pause, Volume2, VolumeX, Wallet, Sparkles } from 'lucide-react';
 import { AdType } from '../types';
 import { useWallet } from '../context/WalletContext';
 import { useLocation } from 'react-router-dom';
@@ -139,7 +139,7 @@ export const AdGeneratorForm: React.FC<AdGeneratorFormProps> = ({ isDashboard })
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
     if (error) setError(null);
   };
@@ -185,7 +185,7 @@ export const AdGeneratorForm: React.FC<AdGeneratorFormProps> = ({ isDashboard })
       link.href = blobUrl;
 
       const extension = result.url.split('.').pop()?.split('?')[0] || (result.type === 'video' ? 'mp4' : 'png');
-      link.download = `ad_genius_${Date.now()}.${extension}`;
+      link.download = `trymyra_${Date.now()}.${extension}`;
 
       document.body.appendChild(link);
       link.click();
@@ -197,7 +197,7 @@ export const AdGeneratorForm: React.FC<AdGeneratorFormProps> = ({ isDashboard })
       const link = document.createElement('a');
       link.href = result.url;
       link.target = "_blank";
-      link.download = `ad_genius_${Date.now()}`;
+      link.download = `trymyra_${Date.now()}`;
       link.click();
     }
   };
@@ -418,92 +418,150 @@ export const AdGeneratorForm: React.FC<AdGeneratorFormProps> = ({ isDashboard })
   }
 
   return (
-    <section id="generate" className={`${isDashboard ? '' : 'py-20 bg-[#f8fafc] dark:bg-background-dark'} flex justify-center px-4 transition-colors duration-300`}>
-      <div className={`w-full max-w-5xl ${isDashboard ? 'bg-white/50 dark:bg-[#0B101B]/95' : 'bg-white dark:bg-[#0B101B]/95'} border border-black/5 dark:border-white/5 rounded-[40px] p-10 md:p-16 shadow-2xl transition-all duration-300`}>
+    <section id="generate" className="w-full max-w-6xl mx-auto p-8 md:p-12 space-y-16">
 
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4">
-            {isDashboard ? 'New Creation' : 'Create Your Ad'}
-          </h2>
-          <p className="text-gray-500 dark:text-slate-400 text-lg font-medium opacity-80 mb-6">
-            {isDashboard
-              ? 'Transform your product into a high-converting advertisement.'
-              : 'Fill in the details below to start generating your content.'}
-          </p>
-
-          {isSignedIn && (
-            <div className="inline-flex items-center gap-2 bg-black/5 dark:bg-slate-800 border border-black/10 dark:border-white/10 px-4 py-2 rounded-full">
-              <Wallet size={16} className="text-primary" />
-              <span className="text-sm font-bold text-gray-600 dark:text-slate-300">Balance: <span className="text-slate-900 dark:text-white">{balance} Credits</span></span>
-            </div>
-          )}
+      {/* Header */}
+      <div className="space-y-2 relative">
+        <div className="absolute -left-20 -top-20 w-64 h-64 bg-primary/20 blur-[100px] rounded-full pointer-events-none"></div>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 relative z-10">
+          <div>
+            <h2 className="text-5xl md:text-6xl font-black tracking-tight text-white mb-3 drop-shadow-lg">
+              New Creation
+            </h2>
+            <p className="text-lg text-white/60 max-w-2xl font-light">
+              Transform your product into a high-converting advertisement using our <span className="text-[#00f2ea] font-medium">Neural Engine 2.0</span>.
+            </p>
+          </div>
         </div>
+      </div>
 
-        <form onSubmit={handleSubmit} className="space-y-10">
+      <form onSubmit={handleSubmit} className="space-y-12">
 
-          <div className="space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white ml-1">Select Ad Type</h3>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {[
-                { id: AdType.IMAGE, label: 'Image', icon: ImageIcon },
-                { id: AdType.UGC_AD, label: 'Ugc Ad', icon: Video },
-                { id: AdType.VFX_AD, label: 'Vfx Ad', icon: Wand2 },
-                { id: AdType.NO_HUMAN_AD, label: 'No Human_ad', icon: UserX },
-              ].map((type) => (
+        {/* Step 1: Select Ad Type */}
+        <section className="space-y-8">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-primary to-[#a855f7] text-white font-bold shadow-[0_0_15px_rgba(99,102,241,0.4)]">1</div>
+            <h3 className="text-2xl font-bold text-white tracking-tight">Select Ad Type</h3>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { id: AdType.IMAGE, label: 'Image Ad', icon: ImageIcon, desc: 'Perfect for social feeds', cost: 5 },
+              { id: AdType.UGC_AD, label: 'UGC Ad', icon: Video, desc: 'Authentic creator style', cost: 15 },
+              { id: AdType.VFX_AD, label: 'VFX Ad', icon: Wand2, desc: 'High-end cinematic effects', cost: 25 },
+              { id: AdType.NO_HUMAN_AD, label: 'No Human Ad', icon: UserX, desc: 'Minimalist product focus', cost: 10 },
+            ].map((type) => {
+              const Icon = type.icon;
+              const isActive = formData.adType === type.id;
+              return (
                 <button
                   key={type.id}
                   type="button"
                   onClick={() => setFormData(p => ({ ...p, adType: type.id }))}
-                  className={`flex flex-col items-center gap-3 p-8 rounded-2xl border transition-all ${formData.adType === type.id
-                    ? 'bg-primary/5 border-primary shadow-[0_0_20px_rgba(47,107,255,0.2)]'
-                    : 'bg-white dark:bg-[#141B2D] border-black/5 dark:border-white/5 hover:border-black/10 dark:hover:border-white/10'
+                  className={`relative rounded-2xl p-6 flex flex-col gap-6 cursor-pointer group h-64 transition-all duration-300 ${isActive
+                    ? 'bg-white/5 border border-primary shadow-[0_0_30px_rgba(99,102,241,0.3)] backdrop-blur-xl'
+                    : 'bg-white/[0.03] border border-white/10 hover:border-white/30 backdrop-blur-xl hover:bg-white/[0.07]'
                     }`}
                 >
-                  <type.icon size={28} className={formData.adType === type.id ? 'text-primary' : 'text-gray-400 dark:text-slate-500'} />
-                  <span className={`text-xs font-medium ${formData.adType === type.id ? 'text-slate-900 dark:text-white' : 'text-gray-400 dark:text-slate-500'}`}>
-                    {type.label}
-                  </span>
-                  <span className="text-[10px] font-bold bg-black/5 dark:bg-white/5 px-2 py-0.5 rounded text-gray-500 dark:text-slate-400 mt-1">{getCost(type.id)} Credits</span>
+                  {isActive && (
+                    <div className="absolute -right-8 -top-8 w-32 h-32 bg-primary/40 blur-3xl rounded-full group-hover:bg-primary/60 transition-all"></div>
+                  )}
+
+                  <div className={`w-14 h-14 rounded-xl flex items-center justify-center backdrop-blur-md shadow-lg group-hover:scale-110 transition-transform duration-300 ${isActive
+                    ? 'bg-gradient-to-br from-primary/20 to-white/5 border border-primary/30'
+                    : 'bg-white/5 border border-white/10 group-hover:bg-white/10'
+                    }`}>
+                    <Icon className={`${isActive ? 'text-primary' : 'text-white/70 group-hover:text-white'} transition-colors`} size={28} />
+                  </div>
+
+                  <div>
+                    <h4 className={`font-bold text-xl mb-1 transition-colors ${isActive ? 'text-white' : 'text-white/90'}`}>
+                      {type.label}
+                    </h4>
+                    <p className="text-white/40 text-sm font-medium group-hover:text-white/50 transition-colors">
+                      {type.desc}
+                    </p>
+                  </div>
+
+                  <div className="mt-auto flex justify-between items-center">
+                    <span className={`px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wide transition-colors ${isActive
+                      ? 'bg-primary/20 border border-primary/30 text-[#c4b5fd]'
+                      : 'bg-white/5 border border-white/10 text-white/50 group-hover:bg-white/10 group-hover:text-white'
+                      }`}>
+                      {type.cost} Credits
+                    </span>
+                    {isActive && (
+                      <div className="w-2 h-2 rounded-full bg-[#00f2ea] shadow-[0_0_10px_#00f2ea]"></div>
+                    )}
+                  </div>
                 </button>
-              ))}
-            </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Step 2: Product Details */}
+        <section className="space-y-8">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-primary to-[#a855f7] text-white font-bold shadow-[0_0_15px_rgba(99,102,241,0.4)]">2</div>
+            <h3 className="text-2xl font-bold text-white tracking-tight">Product Details</h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 gap-8">
             <div className="space-y-3">
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white ml-1">Product URL</h3>
-              <input
-                type="text"
-                name="productUrl"
-                value={formData.productUrl}
-                onChange={handleInputChange}
-                placeholder="https://myshop.com/product"
-                className="w-full bg-black/5 dark:bg-[#141B2D] border border-black/5 dark:border-white/5 rounded-xl px-6 py-4 text-slate-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-600 focus:outline-none focus:border-primary transition-all"
-              />
+              <label className="text-sm font-bold text-white/80 ml-1 uppercase tracking-wider text-[11px]">Product URL</label>
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-[#00f2ea]/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <input
+                  type="url"
+                  name="productUrl"
+                  value={formData.productUrl}
+                  onChange={handleInputChange}
+                  placeholder="https://yourstore.com/product-link"
+                  className="relative w-full rounded-2xl px-6 py-5 outline-none placeholder:text-white/20 bg-black/20 border border-white/10 backdrop-blur-md text-white transition-all focus:bg-black/40 focus:border-primary/50 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.5),0_0_15px_rgba(99,102,241,0.2)]"
+                />
+              </div>
             </div>
+
             <div className="space-y-3">
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white ml-1">Product Details</h3>
-              <input
-                type="text"
-                name="productDetails"
-                value={formData.productDetails}
-                onChange={handleInputChange}
-                placeholder="Brief description or specific tone..."
-                className="w-full bg-black/5 dark:bg-[#141B2D] border border-black/5 dark:border-white/5 rounded-xl px-6 py-4 text-slate-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-600 focus:outline-none focus:border-primary transition-all"
-              />
+              <label className="text-sm font-bold text-white/80 ml-1 uppercase tracking-wider text-[11px]">Product Description</label>
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-[#00f2ea]/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <textarea
+                  name="productDetails"
+                  value={formData.productDetails}
+                  onChange={handleInputChange}
+                  placeholder="Describe the key features, selling points, and target audience..."
+                  rows={5}
+                  className="relative w-full rounded-2xl px-6 py-5 outline-none resize-none placeholder:text-white/20 bg-black/20 border border-white/10 backdrop-blur-md text-white transition-all focus:bg-black/40 focus:border-primary/50 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.5),0_0_15px_rgba(99,102,241,0.2)]"
+                />
+              </div>
             </div>
           </div>
+        </section>
 
-          <div className="space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white ml-1">Product Image</h3>
+        {/* Step 3: Upload Assets */}
+        <section className="space-y-8">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-primary to-[#a855f7] text-white font-bold shadow-[0_0_15px_rgba(99,102,241,0.4)]">3</div>
+            <h3 className="text-2xl font-bold text-white tracking-tight">Upload Assets</h3>
+          </div>
+
+          <div className="w-full relative group cursor-pointer">
+            <div className="absolute inset-0 bg-gradient-to-r from-primary to-[#00f2ea] opacity-0 group-hover:opacity-20 blur-2xl transition-opacity duration-500 rounded-[3rem]"></div>
             <div
-              className={`relative border-2 border-dashed rounded-3xl p-16 transition-all text-center cursor-pointer flex flex-col items-center justify-center min-h-[240px] ${dragActive ? 'border-primary bg-primary/5' : 'border-black/5 dark:border-white/5 bg-black/5 dark:bg-[#141B2D]/50 hover:bg-black/10 dark:hover:bg-[#141B2D]'
+              className={`relative overflow-hidden h-72 rounded-[3rem] flex flex-col items-center justify-center gap-6 transition-all backdrop-blur-xl ${dragActive
+                ? 'bg-primary/10 border-2 border-primary'
+                : 'bg-white/[0.03] border border-white/20 hover:border-[#00f2ea]/50'
                 }`}
               onClick={() => fileInputRef.current?.click()}
               onDragOver={(e) => { e.preventDefault(); setDragActive(true); }}
               onDragLeave={() => setDragActive(false)}
               onDrop={handleDrop}
             >
+              {/* Neon Scanning Line */}
+              <div className="scan-line"></div>
+
               <input
                 ref={fileInputRef}
                 type="file"
@@ -513,63 +571,88 @@ export const AdGeneratorForm: React.FC<AdGeneratorFormProps> = ({ isDashboard })
               />
 
               {formData.productImage ? (
-                <div className="animate-in zoom-in-95">
-                  <div className="w-16 h-16 rounded-2xl bg-primary/20 flex items-center justify-center mb-4 text-primary champion mx-auto">
-                    <ImageIcon size={32} />
+                <div className="text-center animate-in zoom-in-95">
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-white/10 to-transparent border border-white/20 flex items-center justify-center mx-auto mb-4 relative">
+                    <div className="absolute inset-0 bg-[#00f2ea]/20 blur-xl rounded-full animate-pulse"></div>
+                    <ImageIcon size={40} className="text-[#00f2ea] relative z-10" />
                   </div>
-                  <p className="text-slate-900 dark:text-white font-bold text-sm">{formData.productImage.name}</p>
-                  <p className="text-xs text-primary mt-2 uppercase font-black tracking-widest">Click to change</p>
+                  <p className="text-xl font-bold text-white mb-2">{formData.productImage.name}</p>
+                  <p className="text-sm text-white/40 font-medium">Click to change image</p>
                 </div>
               ) : (
                 <>
-                  <div className="w-12 h-12 rounded-xl bg-white dark:bg-[#0B101B] border border-black/5 dark:border-white/5 flex items-center justify-center mb-6 text-gray-400 dark:text-slate-400 shadow-sm">
-                    <Upload size={24} />
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-white/10 to-transparent border border-white/20 flex items-center justify-center relative group-hover:scale-110 transition-transform duration-500">
+                    <div className="absolute inset-0 bg-[#00f2ea]/20 blur-xl rounded-full animate-pulse"></div>
+                    <Upload size={40} className="text-[#00f2ea] drop-shadow-[0_0_10px_rgba(0,242,234,0.5)]" />
                   </div>
-                  <p className="text-slate-900 dark:text-white font-bold mb-1">Click to upload or drag and drop</p>
-                  <p className="text-xs text-gray-500 dark:text-slate-500">Only JPG, JPEG, or PNG supported</p>
+                  <div className="text-center z-10">
+                    <p className="text-xl font-bold text-white mb-2">
+                      Drag & drop or <span className="text-[#00f2ea] underline decoration-[#00f2ea]/50 underline-offset-4">browse</span>
+                    </p>
+                    <p className="text-sm text-white/40 font-medium">Supports JPG, PNG, WEBP (Max 25MB)</p>
+                  </div>
                 </>
               )}
             </div>
           </div>
+        </section>
 
-          {error && (
-            <div className="flex items-center gap-2 px-6 py-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm font-bold animate-in fade-in slide-in-from-top-1">
-              <AlertCircle size={18} /> {error}
-            </div>
-          )}
+        {/* Error Display */}
+        {error && (
+          <div className="flex items-start gap-3 px-6 py-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm font-medium animate-in fade-in slide-in-from-top-1">
+            <AlertCircle size={18} className="flex-shrink-0 mt-0.5" />
+            <span>{error}</span>
+          </div>
+        )}
 
+        {/* Submit Button */}
+        <div className="pt-8 pb-20">
           {!isSignedIn ? (
-            <div className="w-full">
-              <SignInButton mode="modal">
-                <button
-                  type="button"
-                  className="w-full py-5 bg-primary hover:bg-primaryDark text-white rounded-xl font-bold text-lg shadow-xl transition-all flex items-center justify-center gap-3 active:scale-95"
-                >
-                  Sign In to Generate
-                </button>
-              </SignInButton>
-              <p className="text-center text-gray-500 dark:text-slate-500 text-sm mt-3">
-                You need to be signed in to generate ads.
-              </p>
-            </div>
+            <SignInButton mode="modal">
+              <button
+                type="button"
+                className="relative w-full py-6 rounded-2xl group overflow-hidden transition-transform active:scale-[0.99]"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-[#4f46e5] via-[#a855f7] to-[#4f46e5] bg-[length:200%_auto] animate-[pulse-glow_3s_infinite]"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent opacity-50"></div>
+                <div className="relative flex items-center justify-center gap-4 z-10">
+                  <Sparkles size={24} className="text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
+                  <span className="text-xl font-black tracking-wide text-white drop-shadow-md">SIGN IN TO GENERATE</span>
+                </div>
+              </button>
+            </SignInButton>
           ) : (
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-5 bg-primary hover:bg-primaryDark disabled:bg-slate-800 disabled:text-slate-500 text-white rounded-xl font-bold text-lg shadow-xl transition-all flex items-center justify-center gap-3 active:scale-95"
+              className="relative w-full py-6 rounded-2xl group overflow-hidden transition-transform active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? (
-                <>
-                  <Loader2 size={24} className="animate-spin" />
-                  Creating your ad...
-                </>
-              ) : (
-                'Generate Ad'
-              )}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#4f46e5] via-[#a855f7] to-[#4f46e5] bg-[length:200%_auto] animate-[pulse-glow_3s_infinite]"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent opacity-50"></div>
+              <div className="relative flex items-center justify-center gap-4 z-10">
+                {isSubmitting ? (
+                  <>
+                    <Loader2 size={24} className="text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] animate-spin" />
+                    <span className="text-xl font-black tracking-wide text-white drop-shadow-md">GENERATING...</span>
+                  </>
+                ) : (
+                  <>
+                    <Sparkles size={24} className="text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] animate-bounce" />
+                    <span className="text-xl font-black tracking-wide text-white drop-shadow-md">GENERATE AD CAMPAIGN</span>
+                  </>
+                )}
+              </div>
             </button>
           )}
-        </form>
-      </div>
+
+          <div className="flex items-center justify-center gap-2 mt-6">
+            <div className="w-2 h-2 bg-[#00f2ea] rounded-full animate-pulse"></div>
+            <p className="text-center text-white/30 text-[10px] uppercase tracking-[0.2em] font-bold">
+              Estimated generation time: 45 seconds
+            </p>
+          </div>
+        </div>
+      </form>
     </section>
   );
 };

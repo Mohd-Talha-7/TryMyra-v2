@@ -33,7 +33,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-background">
+    <div className="relative min-h-[100svh] overflow-hidden bg-background">
 
       {/* 🎥 FULLSCREEN BACKGROUND VIDEO */}
       <div className="absolute inset-0 z-0">
@@ -59,7 +59,7 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* CONTENT */}
-      <div className="relative z-10 pt-32 pb-16 lg:pt-48 lg:pb-24">
+      <div className="relative z-10 pt-24 pb-12 md:pt-32 md:pb-16 lg:pt-48 lg:pb-24">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
@@ -79,7 +79,7 @@ export const Hero: React.FC = () => {
                 Upload a product image or link. Our AI agents generate Image Ads, UGC Videos, VFX Cinematic Ads, and No-Human Videos — ready for marketing in minutes.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 mb-16">
+              <div className="flex flex-col sm:flex-row gap-4 mb-8 md:mb-16">
                 <a
                   href="#generate"
                   onClick={(e) => handleSmoothScroll(e, 'generate')}
