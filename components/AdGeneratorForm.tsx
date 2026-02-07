@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Upload, ImageIcon, Video, Wand2, UserX, AlertCircle, Loader2, Download, RefreshCcw, CheckCircle, Play, Pause, Volume2, VolumeX, Wallet, Sparkles } from 'lucide-react';
+import { Upload, ImageIcon, Video, Wand2, UserX, AlertCircle, Loader2, Download, RefreshCcw, CheckCircle, Play, Pause, Volume2, VolumeX, Sparkles } from 'lucide-react';
 import { AdType } from '../types';
 import { useWallet } from '../context/WalletContext';
 import { useLocation } from 'react-router-dom';
